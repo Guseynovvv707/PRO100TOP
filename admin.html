@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>PRO100TOP — Админка</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body{min-height:100vh;display:grid;place-items:center;background:#111}
+    .panel{width:min(560px,92%);background:#fff;border-radius:22px;padding:36px}
+    input,textarea{width:100%;padding:13px;margin:8px 0 16px;border:1px solid #ddd;border-radius:10px;font:inherit}
+    button{border:0;border-radius:10px;padding:13px 18px;background:#111;color:#fff;font-weight:700;cursor:pointer}
+    .hint{font-size:13px;color:#777}
+    #dashboard{display:none}
+  </style>
+</head>
+<body>
+  <section class="panel" id="login">
+    <h1>PRO100TOP</h1>
+    <h2>Вход администратора</h2>
+    <form id="loginForm">
+      <label>Логин<input id="user" autocomplete="username" required></label>
+      <label>Пароль<input id="pass" type="password" autocomplete="current-password" required></label>
+      <button>Войти</button>
+    </form>
+    <p class="hint">Демо-версия: данные входа указаны в README. Для реального сайта нужна серверная авторизация.</p>
+  </section>
+
+  <section class="panel" id="dashboard">
+    <h1>Админ-панель</h1>
+    <p>Вы вошли как администратор.</p>
+    <label>Заголовок сайта<input id="title" value="Просто. Современно. Топ."></label>
+    <label>Описание<textarea id="desc">Готовая стартовая версия сайта PRO100TOP.</textarea></label>
+    <button onclick="save()">Сохранить в этом браузере</button>
+    <button onclick="location.href='index.html'" style="margin-left:8px">На сайт</button>
+    <p id="status" class="hint"></p>
+  </section>
+
+  <script>
+    const ADMIN_USER = "admin";
+    const ADMIN_PASS = "CHANGE_ME_NOW";
+    document.getElementById("loginForm").addEventListener("submit", e => {
+      e.preventDefault();
+      if (user.value === ADMIN_USER && pass.value === ADMIN_PASS) {
+        login.style.display="none"; dashboard.style.display="block";
+      } else alert("Неверный логин или пароль");
+    });
+    function save(){
+      localStorage.setItem("pro100top_title", title.value);
+      localStorage.setItem("pro100top_desc", desc.value);
+      status.textContent="Сохранено локально в этом браузере.";
+    }
+  </script>
+</body>
+</html>
